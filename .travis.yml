@@ -1,6 +1,12 @@
 language: scala
-jdk: oraclejdk8
+jdk:
+  - oraclejdk8
+  - oraclejdk7
 sudo: false
 
 scala:
   - 2.11.6
+
+script: "sbt clean coverage test"
+after_success: "sbt coveralls"
+

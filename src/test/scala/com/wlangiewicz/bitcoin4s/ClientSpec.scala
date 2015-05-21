@@ -8,7 +8,7 @@ import org.specs2.mutable.Specification
 class ClientSpec extends Specification {
 
   val localhostURL = new URL("http://localhost:8332/")
-  val c = BitcoinClient(localhostURL, "dev", "test")
+  val c = new BitcoinClient(localhostURL, "dev", "test")
 
   "client" should {
     "create simple client" in {

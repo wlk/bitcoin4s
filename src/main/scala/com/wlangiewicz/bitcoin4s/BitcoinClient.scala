@@ -3,7 +3,12 @@ package com.wlangiewicz.bitcoin4s
 import java.net.URL
 import argonaut._, Argonaut._
 
-case class BitcoinClient(url: URL, username: String, password: String) {
+class BitcoinClient(val url: URL, val username: String, val password: String, val client: BitcoinHttpClient) {
+
+  def this(url: URL, username: String, password: String) {
+    this(url, username, password, new RealBitcoinHttpClient(url, username, password))
+  }
+
   def getInfo: Option[Info] = {
     val input = """
           {

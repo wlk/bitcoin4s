@@ -27,10 +27,6 @@ case class BitcoinClient(url: URL, username: String, password: String) {
     input.decodeOption[Info]
   }
 
-  def getBestBlockHash: Option[String] = {
-    Some("0000000020a94e872d7e033e788d90af1ddd638b5c3596c6f59ccc70254831dc")
-  }
-
   def getWalletInfo: Option[WalletInfo] = {
     val input =
       """
@@ -44,6 +40,49 @@ case class BitcoinClient(url: URL, username: String, password: String) {
       """.stripMargin
 
     input.decodeOption[WalletInfo]
+  }
+
+  def getBlockchainInfo: Option[BlockchainInfo] = {
+    val input =
+      """
+      |{
+      |"chain" : "test",
+      |"blocks" : 416026,
+      |"headers" : 416026,
+      |"bestblockhash" : "000000000209962577f54c3f42b51b9501272fb4c9de36b54db16f01883b8541",
+      |"difficulty" : 64.00000000,
+      |"verificationprogress" : 0.99999999,
+      |"chainwork" : "0000000000000000000000000000000000000000000000040e67d2033e3d3517"
+      |}
+    """.stripMargin
+
+    input.decodeOption[BlockchainInfo]
+  }
+
+  def getBlock(hash: String): Option[GetBlock] = {
+    val input =
+      """
+      |{
+      |"hash" : "000000000209962577f54c3f42b51b9501272fb4c9de36b54db16f01883b8541",
+      |"confirmations" : 250,
+      |"size" : 208,
+      |"height" : 416026,
+      |"version" : 3,
+      |"merkleroot" : "eed4a70e2d83aa776800a5c8bf09dea8a1fcdb8225931577420879e18a7c541a",
+      |"tx" : [
+      |"eed4a70e2d83aa776800a5c8bf09dea8a1fcdb8225931577420879e18a7c541a"
+      |],
+      |"time" : 1432219029,
+      |"nonce" : 3081405769,
+      |"bits" : "1c03fffc",
+      |"difficulty" : 64.00000000,
+      |"chainwork" : "0000000000000000000000000000000000000000000000040e67d2033e3d3517",
+      |"previousblockhash" : "0000000001d02bb98ddbd283a24ed73eb9687f23455ede393d3939908f578b54",
+      |"nextblockhash" : "00000000035e025b78a5c7bdfcc91ad297740f7af24d8450ea3928fafad7afe9"
+      |}
+    """.stripMargin
+
+    input.decodeOption[GetBlock]
   }
 
 }

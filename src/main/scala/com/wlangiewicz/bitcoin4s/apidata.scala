@@ -1,6 +1,6 @@
 package com.wlangiewicz.bitcoin4s
 
-case class Result()
+import spray.json._
 
 case class GetWalletInfo(
   walletVersion: Int,
@@ -36,6 +36,7 @@ case class GetNetworkInfo(
   localservices: String,
   networks: Vector[Network]
 )
+
 case class GetMiningInfo(
   blocks: Int,
   currentblocksie: Int,
@@ -49,4 +50,37 @@ case class GetMiningInfo(
   chain: String,
   generate: Option[Boolean],
   hashespersec: Option[Int]
+)
+
+case class GetMemPoolInfo(
+  size: Int,
+  bytes: Int,
+  usage: Int,
+  maxmempool: Int,
+  mampoolminfee: Int
+)
+
+case class Softfork(
+  id: String,
+  version: Int,
+  enforce: Option[Int],
+  status: Boolean,
+  found: Option[Int],
+  required: Option[Int],
+  window: Option[Int],
+  bip9_softforks: JsObject
+)
+
+case class GetBlockChainInfo(
+  chain: Int,
+  blocks: Int,
+  headers: Int,
+  bestblockhash: String,
+  difficulty: BigDecimal,
+  mediantime: Int,
+  verificationprogress: BigDecimal,
+  chainwork: String,
+  pruned: Boolean,
+  pruneheight: Option[Int],
+  softforks: Vector[Softfork]
 )

@@ -13,7 +13,8 @@ scalaVersion := "2.11.8"
 libraryDependencies ++= Seq(
   "org.scalatest" %% "scalatest" % "3.0.1" % "test",
   "com.typesafe.akka" % "akka-http_2.11" % "10.0.1",
-  "com.typesafe.akka" % "akka-http-core_2.11" % "10.0.1"
+  "com.typesafe.akka" % "akka-http-core_2.11" % "10.0.1",
+  "io.spray" %%  "spray-json" % "1.3.3"
 )
 
 scalacOptions ++= Seq(

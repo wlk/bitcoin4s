@@ -13,9 +13,5 @@ Project is build with sbt
 
 Run `sbt test` or run tests from your IDE
 
-#Donating
-
-If you find project useful, consider donating: `19rCTBsmRFrVVSjg4hDWb5DodbrP5pTTTh`
-
 #License
 Apache License v2, see `COPYING` file

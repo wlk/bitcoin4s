@@ -70,3 +70,8 @@ case class UnspentTransaction(
   spendable: Boolean,
   solvable: Boolean
 )
+
+case class Account(
+  accountId: String,
+  balance: BigDecimal
+)

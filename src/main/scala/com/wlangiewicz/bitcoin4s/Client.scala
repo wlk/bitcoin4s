@@ -97,4 +97,10 @@ class Client(user: String, password: String, host: String, port: Int)(implicit s
     val response = performRequest(request)
     response.flatMap(unmarshalResponse[Vector[UnspentTransaction]])
   }
+
+  def listAccounts(implicit executionContext: ExecutionContext): Future[Vector[Account]] = {
+    val request = httpRequest("listaccounts")
+    val response = performRequest(request)
+    response.flatMap(unmarshalResponse[Vector[Account]])
+  }
 }

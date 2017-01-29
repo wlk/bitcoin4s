@@ -16,12 +16,20 @@ trait JsonFormats extends SprayJsonSupport with DefaultJsonProtocol {
 
   implicit val UnspentTransactionFormat: RootJsonFormat[UnspentTransaction] = jsonFormat9(UnspentTransaction)
 
-  implicit object EstimateFeeFormat extends RootJsonFormat[EstimateFee] {
-    def write(value: EstimateFee) = JsNumber(value.estimate)
-
+  implicit object EstimateFeeFormat extends RootJsonReader[EstimateFee] {
     override def read(json: JsValue): EstimateFee = json match {
       case JsNumber(x) => EstimateFee(x.toInt)
       case x           => deserializationError("Expected EstimateFee as JsNumber, but got " + x)
+    }
+  }
+
+  implicit object VectorAccountsFormat extends RootJsonReader[Vector[Account]] {
+    override def read(json: JsValue): Vector[Account] = json match {
+      case JsObject(x) =>
+        x.seq.map {
+          case (accountId, balance) => Account(accountId, balance.convertTo[BigDecimal])
+        }.toVector
+      case x => deserializationError("Expected Vector[Account] as Json Map, but got " + x)
     }
   }
 }

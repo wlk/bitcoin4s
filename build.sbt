@@ -10,12 +10,16 @@ version := "0.1"
 
 scalaVersion := "2.11.8"
 
-libraryDependencies ++= Seq(
-  "org.scalatest"     %% "scalatest"      % "3.0.1"   % "test",
-  "com.typesafe.akka" %% "akka-http"      % "10.0.3",
-  "com.typesafe.akka" %% "akka-http-core" % "10.0.3",
-  "io.spray"          %% "spray-json"     % "1.3.3"
-)
+libraryDependencies ++= {
+  val akkaHttpVersion       = "10.0.3"
+
+  Seq(
+    "org.scalatest"        %% "scalatest"              % "3.0.1"          % "test",
+    "com.typesafe.akka"    %% "akka-http-core"         % akkaHttpVersion,
+    "com.typesafe.akka"    %% "akka-http-spray-json"   % akkaHttpVersion,
+    "io.spray"             %% "spray-json"             % "1.3.3"
+  )
+}
 
 scalacOptions ++= Seq(
   "-encoding",

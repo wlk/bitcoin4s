@@ -1,7 +1,7 @@
 package com.wlangiewicz.bitcoin4s
 
 case class GetWalletInfo(
-  walletVersion: Int,
+  walletversion: Int,
   balance: BigDecimal,
   txcount: Int,
   keypoololdest: Int,

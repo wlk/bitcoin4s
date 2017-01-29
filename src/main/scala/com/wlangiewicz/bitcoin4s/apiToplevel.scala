@@ -15,7 +15,7 @@ case class GetNetworkInfo(
   protocolversion: Int,
   timeoffset: Int,
   connections: Int,
-  proxy: String,
+  proxy: Option[String],
   relayfee: BigDecimal,
   localservices: String,
   networks: Vector[Network]
@@ -23,11 +23,11 @@ case class GetNetworkInfo(
 
 case class GetMiningInfo(
   blocks: Int,
-  currentblocksie: Int,
+  currentblocksize: Int,
   currentblocktx: Int,
   difficulty: Int,
-  errors: Int,
-  genproclimit: Int,
+  errors: String,
+  genproclimit: Option[Int],
   networkhashps: Int,
   pooledtx: Int,
   testnet: Boolean,
@@ -41,11 +41,11 @@ case class GetMemPoolInfo(
   bytes: Int,
   usage: Int,
   maxmempool: Int,
-  mampoolminfee: Int
+  mempoolminfee: Int
 )
 
 case class GetBlockChainInfo(
-  chain: Int,
+  chain: String,
   blocks: Int,
   headers: Int,
   bestblockhash: String,
@@ -54,6 +54,5 @@ case class GetBlockChainInfo(
   verificationprogress: BigDecimal,
   chainwork: String,
   pruned: Boolean,
-  pruneheight: Option[Int],
-  softforks: Vector[Softfork]
+  pruneheight: Option[Int]
 )

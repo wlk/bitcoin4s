@@ -42,4 +42,28 @@ class Client(user: String, password: String, host: String, port: Int)(implicit s
     val response = performRequest(request)
     response.flatMap(unmarshalResponse[GetWalletInfo])
   }
+
+  def networkInfo(implicit executionContext: ExecutionContext): Future[GetNetworkInfo] = {
+    val request = httpRequest("getnetworkinfo")
+    val response = performRequest(request)
+    response.flatMap(unmarshalResponse[GetNetworkInfo])
+  }
+
+  def miningInfo(implicit executionContext: ExecutionContext): Future[GetMiningInfo] = {
+    val request = httpRequest("getmininginfo")
+    val response = performRequest(request)
+    response.flatMap(unmarshalResponse[GetMiningInfo])
+  }
+
+  def memPoolInfo(implicit executionContext: ExecutionContext): Future[GetMemPoolInfo] = {
+    val request = httpRequest("getmempoolinfo")
+    val response = performRequest(request)
+    response.flatMap(unmarshalResponse[GetMemPoolInfo])
+  }
+
+  def blockchainInfo(implicit executionContext: ExecutionContext): Future[GetBlockChainInfo] = {
+    val request = httpRequest("getblockchaininfo")
+    val response = performRequest(request)
+    response.flatMap(unmarshalResponse[GetBlockChainInfo])
+  }
 }

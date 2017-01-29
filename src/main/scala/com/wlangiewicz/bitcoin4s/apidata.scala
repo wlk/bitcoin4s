@@ -13,7 +13,7 @@ case class Network(
   limited: Boolean,
   reachable: Boolean,
   proxy: String,
-  localaddress: Vector[Address]
+  localaddress: Option[Vector[Address]]
 )
 
 case class Softfork(
@@ -23,6 +23,5 @@ case class Softfork(
   status: Boolean,
   found: Option[Int],
   required: Option[Int],
-  window: Option[Int],
-  bip9_softforks: JsObject
+  window: Option[Int]
 )

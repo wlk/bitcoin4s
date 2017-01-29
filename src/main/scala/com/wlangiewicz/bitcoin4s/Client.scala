@@ -28,7 +28,7 @@ class Client(user: String, password: String, host: String, port: Int)(implicit s
     )
   }
 
-    private def httpRequest(method: String, param: Int) = {
+  private def httpRequest(method: String, param: Int) = {
     HttpRequest(
       uri = connectionString,
       method = HttpMethods.POST,
@@ -50,9 +50,9 @@ class Client(user: String, password: String, host: String, port: Int)(implicit s
 
   private def unmarshalResponse[T](httpResponse: HttpResponse)(implicit executionContext: ExecutionContext, reader: JsonReader[T]): Future[T] = {
     // TODO: Error handling
-    Unmarshal(httpResponse).to[String].map{ r =>
+    Unmarshal(httpResponse).to[String].map { r =>
       println(r)
-     r.parseJson.asJsObject.getFields("result").head.convertTo[T]
+      r.parseJson.asJsObject.getFields("result").head.convertTo[T]
     }
   }
 
@@ -90,5 +90,11 @@ class Client(user: String, password: String, host: String, port: Int)(implicit s
     val request = httpRequest("estimatefee", 6)
     val response = performRequest(request)
     response.flatMap(unmarshalResponse[EstimateFee])
+  }
+
+  def listUnspentTransactions(implicit executionContext: ExecutionContext): Future[Vector[UnspentTransaction]] = {
+    val request = httpRequest("listunspent")
+    val response = performRequest(request)
+    response.flatMap(unmarshalResponse[Vector[UnspentTransaction]])
   }
 }

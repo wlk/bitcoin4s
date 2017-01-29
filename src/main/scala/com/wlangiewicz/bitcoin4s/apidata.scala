@@ -23,3 +23,4 @@ case class Softfork(
   required: Option[Int],
   window: Option[Int]
 )
+

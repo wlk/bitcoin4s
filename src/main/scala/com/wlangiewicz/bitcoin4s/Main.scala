@@ -18,7 +18,8 @@ object Main extends App {
   //val b = client.miningInfo
   //val b = client.memPoolInfo
   //val b = client.blockchainInfo
-  val b = client.estimateFee
+  //val b = client.estimateFee
+  val b = client.listUnspentTransactions
 
   val a = Await.result(b, 10 seconds)
   println(a)

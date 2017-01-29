@@ -58,3 +58,15 @@ case class GetBlockChainInfo(
 )
 
 case class EstimateFee(estimate: Int) extends AnyVal
+
+case class UnspentTransaction(
+  txid: String,
+  vout: Int,
+  address: String,
+  account: String,
+  scriptPubKey: String,
+  amount: BigDecimal,
+  confirmations: Long,
+  spendable: Boolean,
+  solvable: Boolean
+)

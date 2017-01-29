@@ -32,4 +32,11 @@ trait JsonFormats extends SprayJsonSupport with DefaultJsonProtocol {
       case x => deserializationError("Expected Vector[Account] as Json Map, but got " + x)
     }
   }
+
+  implicit object GetNewAddressFormat extends RootJsonReader[GetNewAddress] {
+    override def read(json: JsValue): GetNewAddress = json match {
+      case JsString(x) => GetNewAddress(x)
+      case x           => deserializationError("Expected GetNewAddress as JsString, but got " + x)
+    }
+  }
 }

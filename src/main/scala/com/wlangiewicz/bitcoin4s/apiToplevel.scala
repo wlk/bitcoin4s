@@ -75,3 +75,5 @@ case class Account(
   accountId: String,
   balance: BigDecimal
 )
+
+case class GetNewAddress(address: String) extends AnyVal

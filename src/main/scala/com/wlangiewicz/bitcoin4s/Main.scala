@@ -20,7 +20,8 @@ object Main extends App {
   //val b = client.blockchainInfo
   //val b = client.estimateFee
   //val b = client.listUnspentTransactions
-  val b = client.listAccounts
+  //val b = client.listAccounts
+  val b = client.getNewAddress("test")
 
   val a = Await.result(b, 10 seconds)
   println(a)

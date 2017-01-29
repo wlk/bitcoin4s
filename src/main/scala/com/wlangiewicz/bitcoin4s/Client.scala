@@ -28,7 +28,7 @@ class Client(user: String, password: String, host: String, port: Int)(implicit s
     )
   }
 
-  private def httpRequest(method: String, param: Int) = {
+  private def httpRequestIntParams(method: String, params: Vector[Int]) = {
     HttpRequest(
       uri = connectionString,
       method = HttpMethods.POST,
@@ -36,8 +36,26 @@ class Client(user: String, password: String, host: String, port: Int)(implicit s
         s"""
           |{
           | "method": "$method",
-          | "params": [$param]
+          | "params": [${params.mkString(",")}]
           |}
+        """.stripMargin
+      ),
+      headers = List(authorization)
+    )
+  }
+
+  private def httpRequestStringParams(method: String, params: Vector[String]) = {
+    val formattedParams = params.map(p => "\"" + p + "\"")
+
+    HttpRequest(
+      uri = connectionString,
+      method = HttpMethods.POST,
+      entity = HttpEntity(
+        s"""
+           |{
+           | "method": "$method",
+           | "params": [${formattedParams.mkString(",")}]
+           |}
         """.stripMargin
       ),
       headers = List(authorization)
@@ -87,7 +105,7 @@ class Client(user: String, password: String, host: String, port: Int)(implicit s
   }
 
   def estimateFee(implicit executionContext: ExecutionContext): Future[EstimateFee] = {
-    val request = httpRequest("estimatefee", 6)
+    val request = httpRequestIntParams("estimatefee", Vector(6))
     val response = performRequest(request)
     response.flatMap(unmarshalResponse[EstimateFee])
   }
@@ -102,5 +120,11 @@ class Client(user: String, password: String, host: String, port: Int)(implicit s
     val request = httpRequest("listaccounts")
     val response = performRequest(request)
     response.flatMap(unmarshalResponse[Vector[Account]])
+  }
+
+  def getNewAddress(account: String)(implicit executionContext: ExecutionContext): Future[GetNewAddress] = {
+    val request = httpRequestStringParams("getnewaddress", Vector(account))
+    val response = performRequest(request)
+    response.flatMap(unmarshalResponse[GetNewAddress])
   }
 }

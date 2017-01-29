@@ -56,3 +56,5 @@ case class GetBlockChainInfo(
   pruned: Boolean,
   pruneheight: Option[Int]
 )
+
+case class EstimateFee(estimate: Int) extends AnyVal

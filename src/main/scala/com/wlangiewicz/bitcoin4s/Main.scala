@@ -13,13 +13,14 @@ object Main extends App {
 
   val client = new Client("user", "password", "localhost", 18332)
 
-  //val walletInfo = client.walletInfo
-  //val networkInfo = client.networkInfo
-  //val miningInfo = client.miningInfo
-  //val memPoolInfo = client.memPoolInfo
-  val blockchainInfo = client.blockchainInfo
+  //val b = client.walletInfo
+  //val b = client.networkInfo
+  //val b = client.miningInfo
+  //val b = client.memPoolInfo
+  //val b = client.blockchainInfo
+  val b = client.estimateFee
 
-  val a = Await.result(blockchainInfo, 10 seconds)
+  val a = Await.result(b, 10 seconds)
   println(a)
 
   system.terminate()

@@ -28,13 +28,32 @@ class Client(user: String, password: String, host: String, port: Int)(implicit s
     )
   }
 
+    private def httpRequest(method: String, param: Int) = {
+    HttpRequest(
+      uri = connectionString,
+      method = HttpMethods.POST,
+      entity = HttpEntity(
+        s"""
+          |{
+          | "method": "$method",
+          | "params": [$param]
+          |}
+        """.stripMargin
+      ),
+      headers = List(authorization)
+    )
+  }
+
   private def performRequest(request: HttpRequest): Future[HttpResponse] = {
     Http().singleRequest(request)
   }
 
   private def unmarshalResponse[T](httpResponse: HttpResponse)(implicit executionContext: ExecutionContext, reader: JsonReader[T]): Future[T] = {
     // TODO: Error handling
-    Unmarshal(httpResponse).to[String].map(_.parseJson.asJsObject.getFields("result").head.asJsObject.convertTo[T])
+    Unmarshal(httpResponse).to[String].map{ r =>
+      println(r)
+     r.parseJson.asJsObject.getFields("result").head.convertTo[T]
+    }
   }
 
   def walletInfo(implicit executionContext: ExecutionContext): Future[GetWalletInfo] = {
@@ -65,5 +84,11 @@ class Client(user: String, password: String, host: String, port: Int)(implicit s
     val request = httpRequest("getblockchaininfo")
     val response = performRequest(request)
     response.flatMap(unmarshalResponse[GetBlockChainInfo])
+  }
+
+  def estimateFee(implicit executionContext: ExecutionContext): Future[EstimateFee] = {
+    val request = httpRequest("estimatefee", 6)
+    val response = performRequest(request)
+    response.flatMap(unmarshalResponse[EstimateFee])
   }
 }

@@ -1,7 +1,5 @@
 package com.wlangiewicz.bitcoin4s
 
-import spray.json._
-
 case class Address(
   address: String,
   port: Int,

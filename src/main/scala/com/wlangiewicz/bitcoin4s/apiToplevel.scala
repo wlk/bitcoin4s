@@ -57,7 +57,7 @@ case class GetBlockChainInfo(
   pruneheight: Option[Int]
 )
 
-case class EstimateFee(estimate: Int) extends AnyVal
+case class EstimateFee(estimate: BigDecimal) extends AnyVal
 
 case class UnspentTransaction(
   txid: String,

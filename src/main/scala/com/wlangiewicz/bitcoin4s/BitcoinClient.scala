@@ -108,8 +108,8 @@ class BitcoinClient(user: String, password: String, host: String, port: Int)(imp
     response.flatMap(unmarshalResponse[EstimateFee])
   }
 
-  def listUnspentTransactions(minimumConfirmations: Option[Int] = None)(implicit executionContext: ExecutionContext): Future[Vector[UnspentTransaction]] = {
-    val request = httpRequestIntParams("listunspent", Vector(minimumConfirmations.getOrElse(0)))
+  def listUnspentTransactions(minimumConfirmations: Option[Int] = None, maximumConfirmations: Option[Int] = None)(implicit executionContext: ExecutionContext): Future[Vector[UnspentTransaction]] = {
+    val request = httpRequestIntParams("listunspent", Vector(minimumConfirmations.getOrElse(0), maximumConfirmations.getOrElse(0)))
     val response = performRequest(request)
     response.flatMap(unmarshalResponse[Vector[UnspentTransaction]])
   }

@@ -18,7 +18,7 @@ trait JsonFormats extends SprayJsonSupport with DefaultJsonProtocol {
 
   implicit object EstimateFeeFormat extends RootJsonReader[EstimateFee] {
     override def read(json: JsValue): EstimateFee = json match {
-      case JsNumber(x) => EstimateFee(x.toInt)
+      case JsNumber(x) => EstimateFee(x)
       case x           => deserializationError("Expected EstimateFee as JsNumber, but got " + x)
     }
   }

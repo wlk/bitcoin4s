@@ -11,7 +11,7 @@ import spray.json._
 
 class BitcoinClient(httpClient: HttpClient)(implicit system: ActorSystem, materializer: ActorMaterializer) extends JsonFormats {
 
-  def this(user: String, password: String, host: String, port: Int)(implicit system: ActorSystem, materializer: ActorMaterializer){
+  def this(user: String, password: String, host: String, port: Int)(implicit system: ActorSystem, materializer: ActorMaterializer) {
     this(new AkkaHttpClient(user, password, host, port))
   }
 

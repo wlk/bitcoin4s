@@ -60,4 +60,3 @@ abstract class HttpClient(val user: String, val password: String, val host: Stri
   def performRequest(request: HttpRequest): Future[HttpResponse]
 }
 
-

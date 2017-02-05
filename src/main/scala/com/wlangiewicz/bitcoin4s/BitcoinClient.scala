@@ -11,7 +11,7 @@ import akka.http.scaladsl.unmarshalling.Unmarshal
 import akka.stream.ActorMaterializer
 import spray.json._
 
-class Client(user: String, password: String, host: String, port: Int)(implicit system: ActorSystem, materializer: ActorMaterializer) extends JsonFormats {
+class BitcoinClient(user: String, password: String, host: String, port: Int)(implicit system: ActorSystem, materializer: ActorMaterializer) extends JsonFormats {
   val connectionString = s"http://$host:$port/"
   val authorization = headers.Authorization(BasicHttpCredentials(user, password))
 
@@ -108,8 +108,8 @@ class Client(user: String, password: String, host: String, port: Int)(implicit s
     response.flatMap(unmarshalResponse[EstimateFee])
   }
 
-  def listUnspentTransactions(implicit executionContext: ExecutionContext): Future[Vector[UnspentTransaction]] = {
-    val request = httpRequest("listunspent")
+  def listUnspentTransactions(minimumConfirmations: Option[Int] = None)(implicit executionContext: ExecutionContext): Future[Vector[UnspentTransaction]] = {
+    val request = httpRequestIntParams("listunspent", Vector(minimumConfirmations.getOrElse(0)))
     val response = performRequest(request)
     response.flatMap(unmarshalResponse[Vector[UnspentTransaction]])
   }

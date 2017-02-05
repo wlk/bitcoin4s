@@ -63,7 +63,7 @@ case class UnspentTransaction(
   txid: String,
   vout: Int,
   address: String,
-  account: String,
+  account: Option[String],
   scriptPubKey: String,
   amount: BigDecimal,
   confirmations: Long,

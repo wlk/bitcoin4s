@@ -102,8 +102,8 @@ class BitcoinClient(user: String, password: String, host: String, port: Int)(imp
     response.flatMap(unmarshalResponse[GetBlockChainInfo])
   }
 
-  def estimateFee(implicit executionContext: ExecutionContext): Future[EstimateFee] = {
-    val request = httpRequestIntParams("estimatefee", Vector(6))
+  def estimateFee(blocks: Option[Int] = None)(implicit executionContext: ExecutionContext): Future[EstimateFee] = {
+    val request = httpRequestIntParams("estimatefee", Vector(blocks.getOrElse(6)))
     val response = performRequest(request)
     response.flatMap(unmarshalResponse[EstimateFee])
   }
@@ -114,8 +114,8 @@ class BitcoinClient(user: String, password: String, host: String, port: Int)(imp
     response.flatMap(unmarshalResponse[Vector[UnspentTransaction]])
   }
 
-  def listAccounts(implicit executionContext: ExecutionContext): Future[Vector[Account]] = {
-    val request = httpRequest("listaccounts")
+  def listAccounts(confirmations: Option[Int] = None)(implicit executionContext: ExecutionContext): Future[Vector[Account]] = {
+    val request = httpRequestIntParams("listaccounts", Vector(confirmations.getOrElse(0)))
     val response = performRequest(request)
     response.flatMap(unmarshalResponse[Vector[Account]])
   }

@@ -77,3 +77,5 @@ case class Account(
 )
 
 case class GetNewAddress(address: String) extends AnyVal
+
+case class SentTransactionId(id: String) extends AnyVal

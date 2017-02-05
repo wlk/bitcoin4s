@@ -67,9 +67,7 @@ class Client(user: String, password: String, host: String, port: Int)(implicit s
   }
 
   private def unmarshalResponse[T](httpResponse: HttpResponse)(implicit executionContext: ExecutionContext, reader: JsonReader[T]): Future[T] = {
-    // TODO: Error handling
     Unmarshal(httpResponse).to[String].map { r =>
-      println(r)
       r.parseJson.asJsObject.getFields("result").head.convertTo[T]
     }
   }
@@ -126,5 +124,11 @@ class Client(user: String, password: String, host: String, port: Int)(implicit s
     val request = httpRequestStringParams("getnewaddress", Vector(account))
     val response = performRequest(request)
     response.flatMap(unmarshalResponse[GetNewAddress])
+  }
+
+  def sendFrom(account: String, to: String, amount: BigDecimal, confirmations: Option[Int])(implicit executionContext: ExecutionContext): Future[SentTransactionId] = {
+    val request = httpRequestStringParams("sendfrom", Vector("\"" + account + "\"", "\"" + to + "\"", amount.toString, confirmations.getOrElse(0).toString))
+    val response = performRequest(request)
+    response.flatMap(unmarshalResponse[SentTransactionId])
   }
 }

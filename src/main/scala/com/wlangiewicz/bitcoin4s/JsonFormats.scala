@@ -39,4 +39,11 @@ trait JsonFormats extends SprayJsonSupport with DefaultJsonProtocol {
       case x           => deserializationError("Expected GetNewAddress as JsString, but got " + x)
     }
   }
+
+  implicit object SentTransactionIdFormat extends RootJsonReader[SentTransactionId] {
+    override def read(json: JsValue): SentTransactionId = json match {
+      case JsString(x) => SentTransactionId(x)
+      case x           => deserializationError("Expected SentTransactionId as JsString, but got " + x)
+    }
+  }
 }

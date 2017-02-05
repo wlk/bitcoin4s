@@ -22,6 +22,7 @@ object Main extends App {
   //val b = client.listUnspentTransactions
   //val b = client.listAccounts
   val b = client.getNewAddress("test")
+  //val b = client.sendFrom("test", "totest", BigDecimal(0.0000001), Some(3))
 
   val a = Await.result(b, 10 seconds)
   println(a)

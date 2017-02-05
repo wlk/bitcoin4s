@@ -5,7 +5,7 @@ import scalariform.formatter.preferences._
 
 name := "bitcoin4s"
 
-version := "0.1.0"
+version := "0.1.1"
 
 scalaVersion := "2.11.8"
 
@@ -42,7 +42,7 @@ ScalariformKeys.preferences := ScalariformKeys.preferences.value
 
 bintrayOrganization := Some("wlangiewicz")
 
-licenses += ("Apache 2.0", url("https://opensource.org/licenses/Apache-2.0"))
+licenses += ("Apache-2.0", url("https://opensource.org/licenses/Apache-2.0"))
 
 val doNotPublishSettings = Seq(publish := {})
 

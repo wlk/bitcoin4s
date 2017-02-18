@@ -20,4 +20,15 @@ object TestData {
       |}
       |""".stripMargin.parseJson
 
+  val generateResponse: JsValue =
+    """{
+      |    "result": [
+      |      "36252b5852a5921bdfca8701f936b39edeb1f8c39fffe73b0d8437921401f9af",
+      |      "5f2956817db1e386759aa5794285977c70596b39ea093b9eab0aa4ba8cd50c06"
+      |    ],
+      |    "error": null,
+      |    "id": null
+      |}
+      |""".stripMargin.parseJson
+
 }

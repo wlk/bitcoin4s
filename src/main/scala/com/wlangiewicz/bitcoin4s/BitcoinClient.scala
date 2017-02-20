@@ -81,8 +81,8 @@ class BitcoinClient(httpClient: HttpClient)(implicit system: ActorSystem, materi
     response.flatMap(unmarshalResponse[SentTransactionId])
   }
 
-  def generate(number: Int, maxTries: Int = 1000000)(implicit executionContext: ExecutionContext): Future[HeaderHashes] = {
-    val request = httpClient.httpRequestIntParams("generate", Vector(number, maxTries))
+  def generate(number: Int)(implicit executionContext: ExecutionContext): Future[HeaderHashes] = {
+    val request = httpClient.httpRequestIntParams("generate", Vector(number))
     val response = httpClient.performRequest(request)
     response.flatMap(unmarshalResponse[HeaderHashes])
   }

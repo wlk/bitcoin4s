@@ -34,4 +34,27 @@ class BitcoinClientTest extends FlatSpec with Matchers with ScalaFutures {
     }
   }
 
+  it should "return mininginfo" in {
+    whenReady(bitcoinClient.miningInfo) { miningInfo =>
+      miningInfo.blocks shouldBe 1089632
+    }
+  }
+
+  it should "return memPoolInfo" in {
+    whenReady(bitcoinClient.memPoolInfo) { memPoolInfo =>
+      memPoolInfo.size shouldBe 4
+    }
+  }
+
+  it should "return blockchainInfo" in {
+    whenReady(bitcoinClient.blockchainInfo) { blockchainInfo =>
+      blockchainInfo.chain shouldBe "test"
+    }
+  }
+
+  it should "estimate fee" in {
+    whenReady(bitcoinClient.estimateFee(Some(6))) { fee =>
+      fee.estimate shouldBe BigDecimal("0.00010244")
+    }
+  }
 }

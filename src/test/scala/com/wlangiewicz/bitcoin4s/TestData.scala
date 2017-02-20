@@ -85,4 +85,128 @@ object TestData {
       |}
     """.stripMargin.parseJson
 
+  val miningInfoResponse =
+    """
+      |{
+      |    "result": {
+      |        "blocks": 1089632,
+      |        "currentblocksize": 0,
+      |        "currentblockweight": 0,
+      |        "currentblocktx": 0,
+      |        "difficulty": 1300727.855652248,
+      |        "errors": "Warning: unknown new rules activated (versionbit 28)",
+      |        "networkhashps": 3269881530063.402,
+      |        "pooledtx": 6,
+      |        "testnet": true,
+      |        "chain": "test"
+      |    },
+      |    "error": null,
+      |    "id": null
+      |}
+    """.stripMargin.parseJson
+
+  val memPoolInfoResponse =
+    """
+      |{
+      |    "result": {
+      |        "size": 4,
+      |        "bytes": 1343,
+      |        "usage": 5312,
+      |        "maxmempool": 300000000,
+      |        "mempoolminfee": 0
+      |    },
+      |    "error": null,
+      |    "id": null
+      |}
+    """.stripMargin.parseJson
+
+  val blockchainInfoResponse =
+    """
+      |{
+      |    "result": {
+      |        "chain": "test",
+      |        "blocks": 1089634,
+      |        "headers": 1089634,
+      |        "bestblockhash": "0000000000000732220dd6a674c12f91e2b9cd21817338708f6de5b56f75a7d3",
+      |        "difficulty": 1300727.855652248,
+      |        "mediantime": 1487591936,
+      |        "verificationprogress": 0.999999957737826,
+      |        "chainwork": "00000000000000000000000000000000000000000000001f12183d2453fbca7d",
+      |        "pruned": false,
+      |        "softforks": [
+      |            {
+      |                "id": "bip34",
+      |                "version": 2,
+      |                "enforce": {
+      |                    "status": true,
+      |                    "found": 100,
+      |                    "required": 51,
+      |                    "window": 100
+      |                },
+      |                "reject": {
+      |                    "status": true,
+      |                    "found": 100,
+      |                    "required": 75,
+      |                    "window": 100
+      |                }
+      |            },
+      |            {
+      |                "id": "bip66",
+      |                "version": 3,
+      |                "enforce": {
+      |                    "status": true,
+      |                    "found": 100,
+      |                    "required": 51,
+      |                    "window": 100
+      |                },
+      |                "reject": {
+      |                    "status": true,
+      |                    "found": 100,
+      |                    "required": 75,
+      |                    "window": 100
+      |                }
+      |            },
+      |            {
+      |                "id": "bip65",
+      |                "version": 4,
+      |                "enforce": {
+      |                    "status": true,
+      |                    "found": 100,
+      |                    "required": 51,
+      |                    "window": 100
+      |                },
+      |                "reject": {
+      |                    "status": true,
+      |                    "found": 100,
+      |                    "required": 75,
+      |                    "window": 100
+      |                }
+      |            }
+      |        ],
+      |        "bip9_softforks": {
+      |            "csv": {
+      |                "status": "active",
+      |                "startTime": 1456790400,
+      |                "timeout": 1493596800
+      |            },
+      |            "segwit": {
+      |                "status": "active",
+      |                "startTime": 1462060800,
+      |                "timeout": 1493596800
+      |            }
+      |        }
+      |    },
+      |    "error": null,
+      |    "id": null
+      |}
+    """.stripMargin.parseJson
+
+  val estimateFeeResponse =
+    """
+      |{
+      |    "result": 0.00010244,
+      |    "error": null,
+      |    "id": null
+      |}
+    """.stripMargin.parseJson
 }

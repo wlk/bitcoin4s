@@ -30,6 +30,8 @@ class BitcoinTestClient(user: String, password: String, host: String, port: Int)
       case "getmempoolinfo"    => TestData.memPoolInfoResponse
       case "getblockchaininfo" => TestData.blockchainInfoResponse
       case "estimatefee"       => TestData.estimateFeeResponse
+      case "listunspent"       => TestData.listUnspentResponse
+      case "listaccounts"      => TestData.listAccountsResponse
       case "generate"          => TestData.generateResponse
       case _                   => JsNumber(-1)
     }

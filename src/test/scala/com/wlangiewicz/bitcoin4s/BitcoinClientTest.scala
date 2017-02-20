@@ -57,4 +57,17 @@ class BitcoinClientTest extends FlatSpec with Matchers with ScalaFutures {
       fee.estimate shouldBe BigDecimal("0.00010244")
     }
   }
+
+  it should "return unspent transactions" in {
+    whenReady(bitcoinClient.listUnspentTransactions(minimumConfirmations = Some(0), maximumConfirmations = Some(99999999))) { unspentTransactions =>
+      unspentTransactions.size shouldBe 2
+      unspentTransactions.head.address shouldBe "mxC1MksGZQAARADNQutrT5FPVn76bqmgZW"
+    }
+  }
+
+  it should "return accounts" in {
+    whenReady(bitcoinClient.listAccounts()) { accounts =>
+      accounts.size shouldBe 3
+    }
+  }
 }

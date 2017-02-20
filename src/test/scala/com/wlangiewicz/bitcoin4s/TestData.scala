@@ -209,4 +209,49 @@ object TestData {
       |    "id": null
       |}
     """.stripMargin.parseJson
+
+  val listUnspentResponse =
+    """
+      |{
+      |    "result": [
+      |        {
+      |            "txid": "b13eae2ff0f833321cfb58fd69724b0388160208fc38a8879551afab06f39900",
+      |            "vout": 1,
+      |            "address": "mxC1MksGZQAARADNQutrT5FPVn76bqmgZW",
+      |            "account": "account1",
+      |            "scriptPubKey": "73a914b6e5b09be4bea8f85b075486e293765d0907ee2f88ac",
+      |            "amount": 0.00286345,
+      |            "confirmations": 411134,
+      |            "spendable": true,
+      |            "solvable": true
+      |        },
+      |        {
+      |            "txid": "31fab313cd7dcdd57373e50c662cd7de87df6a1137cbea6493947c1540b33103",
+      |            "vout": 0,
+      |            "address": "n2LFEBSkiJreLLqnjbTP31TiQd4eBt6S3K",
+      |            "account": "account2",
+      |            "scriptPubKey": "76a914e4535d337068c27e4cda6384b64e2024694e99d388ac",
+      |            "amount": 0.00005477,
+      |            "confirmations": 25842,
+      |            "spendable": true,
+      |            "solvable": true
+      |        }
+      |    ],
+      |    "error": null,
+      |    "id": null
+      |}
+    """.stripMargin.parseJson
+
+  val listAccountsResponse =
+    """
+      |{
+      |    "result": {
+      |        "": -0.00025328,
+      |        "account1": 10.00041465,
+      |        "account2": 0
+      |    },
+      |    "error": null,
+      |    "id": null
+      |}
+    """.stripMargin.parseJson
 }

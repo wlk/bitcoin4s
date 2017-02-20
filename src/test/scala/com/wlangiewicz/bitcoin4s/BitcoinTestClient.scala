@@ -24,9 +24,10 @@ class BitcoinTestClient(user: String, password: String, host: String, port: Int)
 
   private def loadJsonReponseFromTestData(method: String): JsValue = {
     method match {
-      case "getwalletinfo" => TestData.walletInfoResponse
-      case "generate"      => TestData.generateResponse
-      case _               => JsNumber(-1)
+      case "getwalletinfo"  => TestData.walletInfoResponse
+      case "getnetworkinfo" => TestData.networkInfoResponse
+      case "generate"       => TestData.generateResponse
+      case _                => JsNumber(-1)
     }
   }
 

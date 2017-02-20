@@ -28,4 +28,10 @@ class BitcoinClientTest extends FlatSpec with Matchers with ScalaFutures {
     }
   }
 
+  it should "return networkinfo" in {
+    whenReady(bitcoinClient.networkInfo) { networkInfo =>
+      networkInfo.connections shouldBe 8
+    }
+  }
+
 }

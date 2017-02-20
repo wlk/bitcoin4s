@@ -31,4 +31,58 @@ object TestData {
       |}
       |""".stripMargin.parseJson
 
+  val networkInfoResponse: JsValue =
+    """
+      |{
+      |    "result": {
+      |        "version": 130100,
+      |        "subversion": "/Satoshi:0.13.1/",
+      |        "protocolversion": 70014,
+      |        "localservices": "000000000000000d",
+      |        "localrelay": true,
+      |        "timeoffset": 0,
+      |        "connections": 8,
+      |        "networks": [
+      |            {
+      |                "name": "ipv4",
+      |                "limited": false,
+      |                "reachable": true,
+      |                "proxy": "",
+      |                "proxy_randomize_credentials": false
+      |            },
+      |            {
+      |                "name": "ipv6",
+      |                "limited": false,
+      |                "reachable": true,
+      |                "proxy": "",
+      |                "proxy_randomize_credentials": false
+      |            },
+      |            {
+      |                "name": "onion",
+      |                "limited": true,
+      |                "reachable": false,
+      |                "proxy": "",
+      |                "proxy_randomize_credentials": false
+      |            }
+      |        ],
+      |        "relayfee": 0.00001,
+      |        "localaddresses": [
+      |            {
+      |                "address": "1.2.3.4",
+      |                "port": 18333,
+      |                "score": 1
+      |            },
+      |            {
+      |                "address": "abcd:efef::abcde:adad:1234:5678",
+      |                "port": 18333,
+      |                "score": 1
+      |            }
+      |        ],
+      |        "warnings": "Warning: unknown new rules activated (versionbit 28)"
+      |    },
+      |    "error": null,
+      |    "id": null
+      |}
+    """.stripMargin.parseJson
+
 }

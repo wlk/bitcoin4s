@@ -25,9 +25,9 @@ abstract class HttpClient(val user: String, val password: String, val host: Stri
 
   def httpRequestWithParams(method: String, params: Vector[Any]): HttpRequest = {
     val formattedParams: Vector[String] = params.map {
-      case param: Int => param.toString
+      case param: Int        => param.toString
       case param: BigDecimal => param.toString
-      case param: String => "\"" + param + "\""
+      case param: String     => "\"" + param + "\""
     }
 
     HttpRequest(
@@ -44,7 +44,6 @@ abstract class HttpClient(val user: String, val password: String, val host: Stri
       headers = List(authorization)
     )
   }
-
 
   def performRequest(request: HttpRequest): Future[HttpResponse]
 }

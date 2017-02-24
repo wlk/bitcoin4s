@@ -34,4 +34,52 @@ class BitcoinClientTest extends FlatSpec with Matchers with ScalaFutures {
     }
   }
 
+  it should "return mininginfo" in {
+    whenReady(bitcoinClient.miningInfo) { miningInfo =>
+      miningInfo.blocks shouldBe 1089632
+    }
+  }
+
+  it should "return memPoolInfo" in {
+    whenReady(bitcoinClient.memPoolInfo) { memPoolInfo =>
+      memPoolInfo.size shouldBe 4
+    }
+  }
+
+  it should "return blockchainInfo" in {
+    whenReady(bitcoinClient.blockchainInfo) { blockchainInfo =>
+      blockchainInfo.chain shouldBe "test"
+    }
+  }
+
+  it should "estimate fee" in {
+    whenReady(bitcoinClient.estimateFee(Some(6))) { fee =>
+      fee.estimate shouldBe BigDecimal("0.00010244")
+    }
+  }
+
+  it should "return unspent transactions" in {
+    whenReady(bitcoinClient.listUnspentTransactions(minimumConfirmations = Some(0), maximumConfirmations = Some(99999999))) { unspentTransactions =>
+      unspentTransactions.size shouldBe 2
+      unspentTransactions.head.address shouldBe "mxC1MksGZQAARADNQutrT5FPVn76bqmgZW"
+    }
+  }
+
+  it should "return accounts" in {
+    whenReady(bitcoinClient.listAccounts()) { accounts =>
+      accounts.size shouldBe 3
+    }
+  }
+
+  it should "return new address" in {
+    whenReady(bitcoinClient.getNewAddress("testaccount")) { newAddress =>
+      newAddress.address should have size 34
+    }
+  }
+
+    it should "sendfrom should send and return transation id" in {
+    whenReady(bitcoinClient.sendFrom("testaccount", "nt54hMq9ghkvTBqmw3BoLjPBGBPWU1RexJ", 0.001, None)) { transactionId =>
+      transactionId.id should have size 64
+    }
+  }
 }

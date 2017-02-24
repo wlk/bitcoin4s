@@ -23,24 +23,12 @@ abstract class HttpClient(val user: String, val password: String, val host: Stri
     )
   }
 
-  def httpRequestIntParams(method: String, params: Vector[Int]): HttpRequest = {
-    HttpRequest(
-      uri = connectionUri,
-      method = HttpMethods.POST,
-      entity = HttpEntity(
-        s"""
-           |{
-           | "method": "$method",
-           | "params": [${params.mkString(",")}]
-           |}
-        """.stripMargin
-      ),
-      headers = List(authorization)
-    )
-  }
-
-  def httpRequestStringParams(method: String, params: Vector[String]): HttpRequest = {
-    val formattedParams = params.map(p => "\"" + p + "\"")
+  def httpRequestWithParams(method: String, params: Vector[Any]): HttpRequest = {
+    val formattedParams: Vector[String] = params.map {
+      case param: Int => param.toString
+      case param: BigDecimal => param.toString
+      case param: String => "\"" + param + "\""
+    }
 
     HttpRequest(
       uri = connectionUri,
@@ -56,6 +44,7 @@ abstract class HttpClient(val user: String, val password: String, val host: Stri
       headers = List(authorization)
     )
   }
+
 
   def performRequest(request: HttpRequest): Future[HttpResponse]
 }

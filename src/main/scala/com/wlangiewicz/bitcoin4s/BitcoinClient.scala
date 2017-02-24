@@ -52,37 +52,37 @@ class BitcoinClient(httpClient: HttpClient)(implicit system: ActorSystem, materi
   }
 
   def estimateFee(blocks: Option[Int] = None)(implicit executionContext: ExecutionContext): Future[EstimateFee] = {
-    val request = httpClient.httpRequestIntParams("estimatefee", Vector(blocks.getOrElse(6)))
+    val request = httpClient.httpRequestWithParams("estimatefee", Vector(blocks.getOrElse(6)))
     val response = httpClient.performRequest(request)
     response.flatMap(unmarshalResponse[EstimateFee])
   }
 
   def listUnspentTransactions(minimumConfirmations: Option[Int] = None, maximumConfirmations: Option[Int] = None)(implicit executionContext: ExecutionContext): Future[Vector[UnspentTransaction]] = {
-    val request = httpClient.httpRequestIntParams("listunspent", Vector(minimumConfirmations.getOrElse(0), maximumConfirmations.getOrElse(0)))
+    val request = httpClient.httpRequestWithParams("listunspent", Vector(minimumConfirmations.getOrElse(0), maximumConfirmations.getOrElse(0)))
     val response = httpClient.performRequest(request)
     response.flatMap(unmarshalResponse[Vector[UnspentTransaction]])
   }
 
   def listAccounts(confirmations: Option[Int] = None)(implicit executionContext: ExecutionContext): Future[Vector[Account]] = {
-    val request = httpClient.httpRequestIntParams("listaccounts", Vector(confirmations.getOrElse(0)))
+    val request = httpClient.httpRequestWithParams("listaccounts", Vector(confirmations.getOrElse(0)))
     val response = httpClient.performRequest(request)
     response.flatMap(unmarshalResponse[Vector[Account]])
   }
 
   def getNewAddress(account: String)(implicit executionContext: ExecutionContext): Future[GetNewAddress] = {
-    val request = httpClient.httpRequestStringParams("getnewaddress", Vector(account))
+    val request = httpClient.httpRequestWithParams("getnewaddress", Vector(account))
     val response = httpClient.performRequest(request)
     response.flatMap(unmarshalResponse[GetNewAddress])
   }
 
   def sendFrom(account: String, to: String, amount: BigDecimal, confirmations: Option[Int])(implicit executionContext: ExecutionContext): Future[SentTransactionId] = {
-    val request = httpClient.httpRequestStringParams("sendfrom", Vector("\"" + account + "\"", "\"" + to + "\"", amount.toString, confirmations.getOrElse(0).toString))
+    val request = httpClient.httpRequestWithParams("sendfrom", Vector(account, to, amount, confirmations.getOrElse(0)))
     val response = httpClient.performRequest(request)
     response.flatMap(unmarshalResponse[SentTransactionId])
   }
 
   def generate(number: Int)(implicit executionContext: ExecutionContext): Future[HeaderHashes] = {
-    val request = httpClient.httpRequestIntParams("generate", Vector(number))
+    val request = httpClient.httpRequestWithParams("generate", Vector(number))
     val response = httpClient.performRequest(request)
     response.flatMap(unmarshalResponse[HeaderHashes])
   }

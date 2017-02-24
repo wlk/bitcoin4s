@@ -20,17 +20,6 @@ object TestData {
       |}
       |""".stripMargin.parseJson
 
-  val generateResponse: JsValue =
-    """{
-      |    "result": [
-      |      "36252b5852a5921bdfca8701f936b39edeb1f8c39fffe73b0d8437921401f9af",
-      |      "5f2956817db1e386759aa5794285977c70596b39ea093b9eab0aa4ba8cd50c06"
-      |    ],
-      |    "error": null,
-      |    "id": null
-      |}
-      |""".stripMargin.parseJson
-
   val networkInfoResponse: JsValue =
     """
       |{
@@ -254,4 +243,33 @@ object TestData {
       |    "id": null
       |}
     """.stripMargin.parseJson
+
+  val getNewAddressResponse =
+    """
+      |{
+      |    "result": "mxNSnhqVuxe8MwBD86UpG6j5tXNxY7N9Hk",
+      |    "error": null,
+      |    "id": null
+      |}
+    """.stripMargin.parseJson
+
+    val sendFromResponse =
+    """
+      |{
+      |    "result": "148a0b45e69bd1734d011299956f6999d39820c62cf4956bfcb820c70cab1902",
+      |    "error": null,
+      |    "id": null
+      |}
+    """.stripMargin.parseJson
+
+  val generateResponse: JsValue =
+    """{
+      |    "result": [
+      |      "36252b5852a5921bdfca8701f936b39edeb1f8c39fffe73b0d8437921401f9af",
+      |      "5f2956817db1e386759aa5794285977c70596b39ea093b9eab0aa4ba8cd50c06"
+      |    ],
+      |    "error": null,
+      |    "id": null
+      |}
+      |""".stripMargin.parseJson
 }

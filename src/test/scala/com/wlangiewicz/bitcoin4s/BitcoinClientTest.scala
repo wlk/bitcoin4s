@@ -70,4 +70,16 @@ class BitcoinClientTest extends FlatSpec with Matchers with ScalaFutures {
       accounts.size shouldBe 3
     }
   }
+
+  it should "return new address" in {
+    whenReady(bitcoinClient.getNewAddress("testaccount")) { newAddress =>
+      newAddress.address should have size 34
+    }
+  }
+
+    it should "sendfrom should send and return transation id" in {
+    whenReady(bitcoinClient.sendFrom("testaccount", "nt54hMq9ghkvTBqmw3BoLjPBGBPWU1RexJ", 0.001, None)) { transactionId =>
+      transactionId.id should have size 64
+    }
+  }
 }

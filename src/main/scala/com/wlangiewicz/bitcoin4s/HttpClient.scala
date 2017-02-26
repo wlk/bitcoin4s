@@ -4,7 +4,6 @@ import akka.http.scaladsl.model._
 import akka.http.scaladsl.model.headers.BasicHttpCredentials
 
 import scala.concurrent.Future
-import scala.language.postfixOps
 
 abstract class HttpClient(val user: String, val password: String, val host: String, val port: Int) {
   val connectionUri = s"http://$host:$port/"

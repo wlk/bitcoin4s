@@ -3,7 +3,6 @@ package com.wlangiewicz.bitcoin4s
 import akka.actor.ActorSystem
 
 import scala.concurrent.{ExecutionContext, Future}
-import scala.language.postfixOps
 import akka.http.scaladsl.model._
 import akka.http.scaladsl.unmarshalling.Unmarshal
 import akka.stream.ActorMaterializer

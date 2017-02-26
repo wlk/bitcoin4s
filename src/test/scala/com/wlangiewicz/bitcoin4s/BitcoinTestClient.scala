@@ -15,27 +15,43 @@ class BitcoinTestClient(user: String, password: String, host: String, port: Int)
   val Host = "localhost"
   val Port = 8332
 
-  private def extractMethod(entityJson: JsObject): String = {
-    entityJson.fields("method") match {
+  private def extractMethod(entityJson: JsObject): (String, Vector[String]) = {
+    val method = entityJson.fields("method") match {
       case JsString(m) => m.toString
       case other       => deserializationError(s"expected method as String but got: $other")
     }
+
+    val params = entityJson.fields.get("params").map {
+      case JsArray(values) => values.map {
+        case JsString(s) => s
+        case JsNumber(n) => n.toString
+        case other       => deserializationError(s"expected JsArray to be String but got: $other")
+      }
+      case other => deserializationError(s"expected params as JsArray but got: $other")
+    }
+
+    (method, params.getOrElse(Vector.empty[String]))
   }
 
-  private def loadJsonReponseFromTestData(method: String): JsValue = {
-    method match {
-      case "getwalletinfo"     => TestData.walletInfoResponse
-      case "getnetworkinfo"    => TestData.networkInfoResponse
-      case "getmininginfo"     => TestData.miningInfoResponse
-      case "getmempoolinfo"    => TestData.memPoolInfoResponse
-      case "getblockchaininfo" => TestData.blockchainInfoResponse
-      case "estimatefee"       => TestData.estimateFeeResponse
-      case "listunspent"       => TestData.listUnspentResponse
-      case "listaccounts"      => TestData.listAccountsResponse
-      case "getnewaddress"     => TestData.getNewAddressResponse
-      case "sendfrom"          => TestData.sendFromResponse
-      case "generate"          => TestData.generateResponse
-      case _                   => JsNumber(-1)
+  private def loadJsonResponseFromTestData(arg: (String, Vector[String])): JsValue = {
+    arg match {
+      case (method, params) =>
+        method match {
+          case _ if params.contains("parseError") => TestData.parseErrorResponse
+          case "getwalletinfo" => TestData.walletInfoResponse
+          case "getnetworkinfo" => TestData.networkInfoResponse
+          case "getmininginfo" => TestData.miningInfoResponse
+          case "getmempoolinfo" => TestData.memPoolInfoResponse
+          case "getblockchaininfo" => TestData.blockchainInfoResponse
+          case "estimatefee" => TestData.estimateFeeResponse
+          case "listunspent" => TestData.listUnspentResponse
+          case "listaccounts" => TestData.listAccountsResponse
+          case "getnewaddress" => TestData.getNewAddressResponse
+          case "generate" => TestData.generateResponse
+          case "sendfrom" if params.contains("insufficientFunds") => TestData.insufficientFundsResponse
+          case "sendfrom" => TestData.sendFromResponse
+          case _ => JsNumber(-1)
+        }
     }
   }
 
@@ -46,7 +62,7 @@ class BitcoinTestClient(user: String, password: String, host: String, port: Int)
 
     entityJson
       .map(extractMethod)
-      .map(loadJsonReponseFromTestData)
+      .map(loadJsonResponseFromTestData)
       .map(response => HttpResponse(entity = HttpEntity(`application/json`, response.prettyPrint)))
   }
 }

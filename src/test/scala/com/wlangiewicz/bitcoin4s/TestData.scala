@@ -253,7 +253,7 @@ object TestData {
       |}
     """.stripMargin.parseJson
 
-    val sendFromResponse =
+  val sendFromResponse =
     """
       |{
       |    "result": "148a0b45e69bd1734d011299956f6999d39820c62cf4956bfcb820c70cab1902",
@@ -272,4 +272,28 @@ object TestData {
       |    "id": null
       |}
       |""".stripMargin.parseJson
+
+  val parseErrorResponse: JsValue =
+    """
+      |{
+      |    "result": null,
+      |    "error": {
+      |        "code": -32700,
+      |        "message": "Parse error"
+      |    },
+      |    "id": null
+      |}
+    """.stripMargin.parseJson
+
+  val insufficientFundsResponse: JsValue =
+    """
+      |{
+      |    "result": null,
+      |    "error": {
+      |        "code": -6,
+      |        "message": "Account has insufficient funds"
+      |    },
+      |    "id": null
+      |}
+    """.stripMargin.parseJson
 }

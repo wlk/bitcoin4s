@@ -53,12 +53,11 @@ trait JsonFormats extends SprayJsonSupport with DefaultJsonProtocol {
   implicit object HeaderHashesFormat extends RootJsonReader[HeaderHashes] {
     override def read(json: JsValue): HeaderHashes = json match {
       case JsArray(hashes) =>
-        val stringHashes = hashes.map {
+        HeaderHashes(hashes.map {
           case JsString(s) => s
           case other       => deserializationError("Expected header hash value as JsString, but got " + other)
-        }
-        HeaderHashes(stringHashes)
-      case x => deserializationError("Expected SentTransactionId as JsString, but got " + x)
+        })
+      case x => deserializationError("Expected HeaderHashes as JsArray[HeaderHash], but got " + x)
     }
   }
 
@@ -71,8 +70,7 @@ trait JsonFormats extends SprayJsonSupport with DefaultJsonProtocol {
             case other                        => deserializationError("Expected unspent transaction value as JsString, but got " + other)
           }
         )
-
-      case x => deserializationError("Expected SentTransactionId as JsString, but got " + x)
+      case x => deserializationError("Expected UnspentTransactions as JsArray[UnspentTransaction], but got " + x)
     }
   }
 }

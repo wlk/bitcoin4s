@@ -5,7 +5,7 @@ import scalariform.formatter.preferences._
 
 name := "bitcoin4s"
 
-version := "0.1.8"
+version := "0.1.9"
 
 scalaVersion := "2.11.8"
 

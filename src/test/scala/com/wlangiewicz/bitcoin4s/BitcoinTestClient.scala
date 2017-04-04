@@ -50,6 +50,8 @@ class BitcoinTestClient(user: String, password: String, host: String, port: Int)
           case "generate" => TestData.generateResponse
           case "sendfrom" if params.contains("insufficientFunds") => TestData.insufficientFundsResponse
           case "sendfrom" => TestData.sendFromResponse
+          case "sendtoaddress" if params(1).toDouble > 100 => TestData.insufficientFundsResponse
+          case "sendtoaddress" => TestData.sendToAddressResponse
           case _ => JsNumber(-1)
         }
     }

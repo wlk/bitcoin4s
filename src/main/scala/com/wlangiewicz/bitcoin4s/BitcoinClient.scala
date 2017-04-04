@@ -88,6 +88,12 @@ class BitcoinClient(httpClient: HttpClient)(implicit system: ActorSystem, materi
     response.flatMap(unmarshalResponse[SentTransactionId])
   }
 
+  def sendToAddress(to: String, amount: BigDecimal, comment: String = "", commentTo: String = "")(implicit executionContext: ExecutionContext): Future[BitcoinResponse[SentTransactionId]] = {
+    val request = httpClient.httpRequestWithParams("sendtoaddress", Vector(to, amount, comment, commentTo))
+    val response = httpClient.performRequest(request)
+    response.flatMap(unmarshalResponse[SentTransactionId])
+  }
+
   def generate(number: Int)(implicit executionContext: ExecutionContext): Future[BitcoinResponse[HeaderHashes]] = {
     val request = httpClient.httpRequestWithParams("generate", Vector(number))
     val response = httpClient.performRequest(request)

@@ -262,6 +262,8 @@ object TestData {
       |}
     """.stripMargin.parseJson
 
+  val sendToAddressResponse = sendFromResponse
+
   val generateResponse: JsValue =
     """{
       |    "result": [

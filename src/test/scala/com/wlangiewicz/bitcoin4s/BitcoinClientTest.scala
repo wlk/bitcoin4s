@@ -115,4 +115,20 @@ class BitcoinClientTest extends FlatSpec with Matchers with ScalaFutures {
       case Right(_) => throw new RuntimeException("expected invalid bitcoind response")
     }
   }
+
+  "sendtoaddress" should "send and return transation id" in {
+    whenReady(bitcoinClient.sendToAddress("nt54hMq9ghkvTBqmw3BoLjPBGBPWU1RexJ", 0.001)) {
+      case Left(_)              => throw new RuntimeException("unexpected bitcoind response")
+      case Right(transactionId) => transactionId.id should have size 64
+    }
+  }
+
+  it should "handle insufficient funds errors" in {
+    whenReady(bitcoinClient.sendToAddress("nt54hMq9ghkvTBqmw3BoLjPBGBPWU1RexJ", 101)) {
+      case Left(x) =>
+        x shouldBe a[GeneralErrorResponse]
+        x.errorMessage.parseJson shouldBe TestData.insufficientFundsResponse.asJsObject.fields("error")
+      case Right(_) => throw new RuntimeException("expected invalid bitcoind response")
+    }
+  }
 }

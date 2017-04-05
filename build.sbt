@@ -5,14 +5,14 @@ import scalariform.formatter.preferences._
 
 name := "bitcoin4s"
 
-version := "0.1.9"
+version := "0.1.10"
 
 scalaVersion := "2.11.8"
 
 organization := "com.wlangiewicz"
 
 libraryDependencies ++= {
-  val akkaHttpVersion       = "10.0.3"
+  val akkaHttpVersion       = "10.0.5"
 
   Seq(
     "org.scalatest"        %% "scalatest"              % "3.0.1"          % "test",

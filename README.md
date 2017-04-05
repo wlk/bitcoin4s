@@ -12,3 +12,16 @@ This is a scala wrapper for the `bitcoin-rpc` interface.
 #Testing
 
 Run `sbt test` or run tests from your IDE
+
+
+#Publishing
+
+when testing:
+```
+sbt publishLocal
+```
+
+real release:
+```
+sbt publish
+```

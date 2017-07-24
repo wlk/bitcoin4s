@@ -5,13 +5,13 @@ import scalariform.formatter.preferences._
 
 name := "bitcoin4s"
 
-version := "0.1.10"
+version := "0.1.11"
 
 scalaVersion := "2.12.2"
 
 crossScalaVersions := Seq("2.11.8", "2.12.2")
 
-organization := "com.wlangiewicz"
+organization := "bitcoinpaygate"
 
 libraryDependencies ++= {
   val akkaHttpVersion       = "10.0.5"
@@ -42,7 +42,9 @@ ScalariformKeys.preferences := ScalariformKeys.preferences.value
   .setPreference(SpacesAroundMultiImports, false)
   .setPreference(CompactControlReadability, false)
 
-bintrayOrganization := Some("wlangiewicz")
+bintrayOrganization := Some("bitcoinpaygate")
+
+bintrayRepository := "bitcoinpaygate-maven"
 
 licenses += ("Apache-2.0", url("https://opensource.org/licenses/Apache-2.0"))
 
@@ -57,13 +59,11 @@ val publishSettings =
     )
   else
     Seq(
-      organization := "com.wlangiewicz",
       pomExtra := <scm>
         <url>https://github.com/wlk/bitcoin4s</url>
         <connection>https://github.com/wlk/bitcoin4s</connection>
       </scm>,
       publishArtifact in Test := false,
       homepage := Some(url("https://github.com/wlk/bitcoin4s")),
-      publishMavenStyle := false,
-      resolvers += Resolver.url("lonelyplanet ivy resolver", url("http://dl.bintray.com/wlangiewicz/maven"))(Resolver.ivyStylePatterns)
+      publishMavenStyle := false
     )

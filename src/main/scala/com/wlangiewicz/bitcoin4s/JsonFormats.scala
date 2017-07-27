@@ -9,7 +9,7 @@ trait JsonFormats extends SprayJsonSupport with DefaultJsonProtocol {
   implicit val NetworkFormat: RootJsonFormat[Network] = jsonFormat5(Network)
   implicit val SoftforkFormat: RootJsonFormat[Softfork] = jsonFormat7(Softfork)
 
-  implicit val GetWalletInfoFormat: RootJsonFormat[GetWalletInfo] = jsonFormat6(GetWalletInfo)
+  implicit val GetWalletInfoFormat: RootJsonFormat[GetWalletInfo] = jsonFormat7(GetWalletInfo)
   implicit val GetNetworkInfoFormat: RootJsonFormat[GetNetworkInfo] = jsonFormat9(GetNetworkInfo)
   implicit val GetMiningInfoFormat: RootJsonFormat[GetMiningInfo] = jsonFormat12(GetMiningInfo)
   implicit val GetMemPoolInfoFormat: RootJsonFormat[GetMemPoolInfo] = jsonFormat5(GetMemPoolInfo)

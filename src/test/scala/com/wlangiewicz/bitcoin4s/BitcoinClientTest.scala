@@ -18,8 +18,11 @@ class BitcoinClientTest extends FlatSpec with Matchers with ScalaFutures {
 
   it should "return walletinfo" in {
     whenReady(bitcoinClient.walletInfo) {
-      case Left(_)           => throw new RuntimeException("unexpected bitcoind response")
-      case Right(walletInfo) => walletInfo.balance shouldBe BigDecimal("1.65751751")
+      case Left(_) => throw new RuntimeException("unexpected bitcoind response")
+      case Right(walletInfo) => {
+        walletInfo.balance shouldBe BigDecimal("1.65751751")
+        walletInfo.unconfirmed_balance shouldBe BigDecimal(0.01)
+      }
     }
   }
 

@@ -8,7 +8,7 @@ object TestData {
       |    "result": {
       |        "walletversion": 60000,
       |        "balance": 1.65751751,
-      |        "unconfirmed_balance": 0,
+      |        "unconfirmed_balance": 0.01,
       |        "immature_balance": 0,
       |        "txcount": 195,
       |        "keypoololdest": 1483630921,

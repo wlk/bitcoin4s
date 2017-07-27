@@ -15,6 +15,7 @@ object Responses {
   case class GetWalletInfo(
     walletversion: Int,
     balance: BigDecimal,
+    unconfirmed_balance: BigDecimal,
     txcount: Int,
     keypoololdest: Int,
     keypoolsize: Int,

@@ -298,4 +298,26 @@ object TestData {
       |    "id": null
       |}
     """.stripMargin.parseJson
+
+  val setTxFeeResponse: JsValue =
+    """
+      |{
+      |    "result": true,
+      |    "error": null,
+      |    "id": null
+      |}
+    """.stripMargin.parseJson
+
+  val setTxFeeOutOfRangeResponse: JsValue =
+    """
+      |{
+      |    "result": null,
+      |    "error": {
+      |        "code": -3,
+      |        "message": "Amount out of range"
+      |    },
+      |    "id": null
+      |}
+    """.stripMargin.parseJson
+
 }

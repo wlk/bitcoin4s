@@ -99,4 +99,6 @@ object Responses {
 
   case class HeaderHashes(hashes: Seq[String]) extends CorrectResponse
 
+  case class SetTxFee(result: Boolean) extends CorrectResponse
+
 }

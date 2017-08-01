@@ -61,6 +61,13 @@ trait JsonFormats extends SprayJsonSupport with DefaultJsonProtocol {
     }
   }
 
+  implicit object SetTxFeeFormat extends RootJsonReader[SetTxFee] {
+    override def read(json: JsValue): SetTxFee = json match {
+      case JsBoolean(x) => SetTxFee(x)
+      case x            => deserializationError("Expected SetTxFee as JsBoolean, but got " + x)
+    }
+  }
+
   implicit object UnspentTransactionsFormat extends RootJsonReader[UnspentTransactions] {
     override def read(json: JsValue): UnspentTransactions = json match {
       case JsArray(unspentTransactions) =>

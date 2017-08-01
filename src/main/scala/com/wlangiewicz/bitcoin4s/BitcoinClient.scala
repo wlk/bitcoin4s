@@ -94,6 +94,12 @@ class BitcoinClient(httpClient: HttpClient)(implicit system: ActorSystem, materi
     response.flatMap(unmarshalResponse[SentTransactionId])
   }
 
+  def setTxFee(btcPerKb: BigDecimal)(implicit executionContext: ExecutionContext): Future[BitcoinResponse[SetTxFee]] = {
+    val request = httpClient.httpRequestWithParams("settxfee", Vector(btcPerKb))
+    val response = httpClient.performRequest(request)
+    response.flatMap(unmarshalResponse[SetTxFee])
+  }
+
   def generate(number: Int)(implicit executionContext: ExecutionContext): Future[BitcoinResponse[HeaderHashes]] = {
     val request = httpClient.httpRequestWithParams("generate", Vector(number))
     val response = httpClient.performRequest(request)

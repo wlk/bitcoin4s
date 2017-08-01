@@ -134,4 +134,21 @@ class BitcoinClientTest extends FlatSpec with Matchers with ScalaFutures {
       case Right(_) => throw new RuntimeException("expected invalid bitcoind response")
     }
   }
+
+  it should "set transaction fee" in {
+    whenReady(bitcoinClient.setTxFee(BigDecimal(0.0003))) {
+      case Left(_)         => throw new RuntimeException("unexpected bitcoind response")
+      case Right(response) => response.result shouldBe true
+    }
+  }
+
+  it should "respond with error for out of range tx fee" in {
+    whenReady(bitcoinClient.setTxFee(BigDecimal(-1))) {
+      case Left(err) =>
+        err shouldBe a[GeneralErrorResponse]
+        err.errorMessage.parseJson shouldBe TestData.setTxFeeOutOfRangeResponse.asJsObject.fields("error")
+      case Right(_) => throw new RuntimeException("expected invalid bitcoind response")
+    }
+  }
+
 }

@@ -9,7 +9,7 @@ version := "0.1.13"
 
 scalaVersion := "2.12.2"
 
-crossScalaVersions := Seq("2.11.8", "2.12.2")
+crossScalaVersions := Seq("2.12.2")
 
 organization := "bitcoinpaygate"
 
@@ -25,20 +25,22 @@ libraryDependencies ++= {
 }
 
 scalacOptions ++= Seq(
-  "-encoding",
-  "utf8",
+  "-encoding", "utf8",
   "-feature",
   "-language:postfixOps",
   "-language:implicitConversions",
   "-unchecked",
-  "-deprecation"
+  "-deprecation",
+  "-Xfatal-warnings",
+  "-Xlint",
+  "-Ywarn-dead-code"
 )
 
 SbtScalariform.scalariformSettings
 
 ScalariformKeys.preferences := ScalariformKeys.preferences.value
   .setPreference(AlignSingleLineCaseStatements, true)
-  .setPreference(DoubleIndentClassDeclaration, true)
+  .setPreference(DoubleIndentConstructorArguments, true)
   .setPreference(SpacesAroundMultiImports, false)
   .setPreference(CompactControlReadability, false)
 

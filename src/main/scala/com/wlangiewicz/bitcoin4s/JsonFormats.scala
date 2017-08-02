@@ -75,8 +75,7 @@ trait JsonFormats extends SprayJsonSupport with DefaultJsonProtocol {
           unspentTransactions.map {
             case unspentTransaction: JsObject => unspentTransaction.convertTo[UnspentTransaction]
             case other                        => deserializationError("Expected unspent transaction value as JsString, but got " + other)
-          }
-        )
+          })
       case x => deserializationError("Expected UnspentTransactions as JsArray[UnspentTransaction], but got " + x)
     }
   }

@@ -16,10 +16,8 @@ abstract class HttpClient(val user: String, val password: String, val host: Stri
       entity = HttpEntity(
         s"""
            |{ "method": "$method" }
-        """.stripMargin
-      ),
-      headers = List(authorization)
-    )
+        """.stripMargin),
+      headers = List(authorization))
   }
 
   def httpRequestWithParams(method: String, params: Vector[Any]): HttpRequest = {
@@ -38,10 +36,8 @@ abstract class HttpClient(val user: String, val password: String, val host: Stri
            | "method": "$method",
            | "params": [${formattedParams.mkString(",")}]
            |}
-        """.stripMargin
-      ),
-      headers = List(authorization)
-    )
+        """.stripMargin),
+      headers = List(authorization))
   }
 
   def performRequest(request: HttpRequest): Future[HttpResponse]

@@ -1,6 +1,5 @@
 package com.wlangiewicz.bitcoin4s
 
-import akka.actor.ActorSystem
 import akka.http.scaladsl.model._
 import spray.json._
 import akka.http.scaladsl.unmarshalling.Unmarshal
@@ -9,7 +8,7 @@ import akka.stream.ActorMaterializer
 import scala.concurrent.{ExecutionContext, Future}
 import akka.http.scaladsl.model.MediaTypes.`application/json`
 
-class BitcoinTestClient(user: String, password: String, host: String, port: Int)(implicit system: ActorSystem, materializer: ActorMaterializer, ec: ExecutionContext) extends HttpClient(user, password, host, port) {
+class BitcoinTestClient(user: String, password: String, host: String, port: Int)(implicit materializer: ActorMaterializer, ec: ExecutionContext) extends HttpClient(user, password, host, port) {
   val User = "user"
   val Password = "password"
   val Host = "localhost"

@@ -82,6 +82,12 @@ class BitcoinClient(httpClient: HttpClient)(implicit system: ActorSystem, materi
     response.flatMap(unmarshalResponse[GetNewAddress])
   }
 
+  def addWitnessAddress(address: String)(implicit executionContext: ExecutionContext): Future[BitcoinResponse[AddWitnessAddress]] = {
+    val request = httpClient.httpRequestWithParams("addwitnessaddress", Vector(address))
+    val response = httpClient.performRequest(request)
+    response.flatMap(unmarshalResponse[AddWitnessAddress])
+  }
+
   def sendFrom(account: String, to: String, amount: BigDecimal, confirmations: Option[Int])(implicit executionContext: ExecutionContext): Future[BitcoinResponse[SentTransactionId]] = {
     val request = httpClient.httpRequestWithParams("sendfrom", Vector(account, to, amount, confirmations.getOrElse(0)))
     val response = httpClient.performRequest(request)

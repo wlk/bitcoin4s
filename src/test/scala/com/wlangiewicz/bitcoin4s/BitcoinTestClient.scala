@@ -46,6 +46,7 @@ class BitcoinTestClient(user: String, password: String, host: String, port: Int)
           case "listunspent" => TestData.listUnspentResponse
           case "listaccounts" => TestData.listAccountsResponse
           case "getnewaddress" => TestData.getNewAddressResponse
+          case "addwitnessaddress" => TestData.addWitnessAddressResponse
           case "generate" => TestData.generateResponse
           case "sendfrom" if params.contains("insufficientFunds") => TestData.insufficientFundsResponse
           case "sendfrom" => TestData.sendFromResponse

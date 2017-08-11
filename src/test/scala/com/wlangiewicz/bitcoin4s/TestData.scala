@@ -253,6 +253,15 @@ object TestData {
       |}
     """.stripMargin.parseJson
 
+  val addWitnessAddressResponse =
+    """
+      |{
+      |    "result": "2N9pJLCWbaGbfvgD2vYFL3d7NP6ZmCPf6f8",
+      |    "error": null,
+      |    "id": null
+      |}
+    """.stripMargin.parseJson
+
   val sendFromResponse =
     """
       |{

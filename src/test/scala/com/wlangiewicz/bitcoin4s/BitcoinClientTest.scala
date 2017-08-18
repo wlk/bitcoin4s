@@ -92,6 +92,13 @@ class BitcoinClientTest extends FlatSpec with Matchers with ScalaFutures {
     }
   }
 
+  it should "add new witness address" in {
+    whenReady(bitcoinClient.addWitnessAddress("mhFaYEiuBV4Nc53PGh1FFGEjj7xrjnQYnB")) {
+      case Left(_)               => throw new RuntimeException("unexpected bitcoind response")
+      case Right(witnessAddress) => witnessAddress.address shouldBe "2N9pJLCWbaGbfvgD2vYFL3d7NP6ZmCPf6f8"
+    }
+  }
+
   it should "sendfrom should send and return transation id" in {
     whenReady(bitcoinClient.sendFrom("testaccount", "nt54hMq9ghkvTBqmw3BoLjPBGBPWU1RexJ", 0.001, None)) {
       case Left(_)              => throw new RuntimeException("unexpected bitcoind response")

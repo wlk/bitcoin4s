@@ -43,6 +43,13 @@ trait JsonFormats extends SprayJsonSupport with DefaultJsonProtocol {
     }
   }
 
+  implicit object AddWithessAddressFormat extends RootJsonReader[AddWitnessAddress] {
+    override def read(json: JsValue): AddWitnessAddress = json match {
+      case JsString(x) => AddWitnessAddress(x)
+      case x           => deserializationError("Expected AddWitnessAddress as JsString, but got " + x)
+    }
+  }
+
   implicit object SentTransactionIdFormat extends RootJsonReader[SentTransactionId] {
     override def read(json: JsValue): SentTransactionId = json match {
       case JsString(x) => SentTransactionId(x)

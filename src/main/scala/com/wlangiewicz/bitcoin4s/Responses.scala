@@ -88,6 +88,8 @@ object Responses {
 
   case class GetNewAddress(address: String) extends CorrectResponse
 
+  case class AddWitnessAddress(address: String) extends CorrectResponse
+
   case class SentTransactionId(id: String) extends CorrectResponse
 
   case class HeaderHashes(hashes: Seq[String]) extends CorrectResponse

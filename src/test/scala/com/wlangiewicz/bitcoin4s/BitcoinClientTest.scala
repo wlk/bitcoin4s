@@ -85,8 +85,15 @@ class BitcoinClientTest extends FlatSpec with Matchers with ScalaFutures {
     }
   }
 
+  it should "return new address for default account" in {
+    whenReady(bitcoinClient.getNewAddress()) {
+      case Left(_)           => throw new RuntimeException("unexpected bitcoind response")
+      case Right(newAddress) => newAddress.address should have size 34
+    }
+  }
+
   it should "return new address" in {
-    whenReady(bitcoinClient.getNewAddress("testaccount")) {
+    whenReady(bitcoinClient.getNewAddress(Some("testaccount"))) {
       case Left(_)           => throw new RuntimeException("unexpected bitcoind response")
       case Right(newAddress) => newAddress.address should have size 34
     }
@@ -116,7 +123,7 @@ class BitcoinClientTest extends FlatSpec with Matchers with ScalaFutures {
   }
 
   it should "new address should handle parse error" in {
-    whenReady(bitcoinClient.getNewAddress("parseError")) {
+    whenReady(bitcoinClient.getNewAddress(Some("parseError"))) {
       case Left(x) =>
         x shouldBe a[GeneralErrorResponse]
         x.errorMessage.parseJson shouldBe TestData.parseErrorResponse.asJsObject.fields("error")

@@ -76,8 +76,8 @@ class BitcoinClient(httpClient: HttpClient)(implicit system: ActorSystem, materi
     response.flatMap(unmarshalResponse[Accounts])
   }
 
-  def getNewAddress(account: String)(implicit executionContext: ExecutionContext): Future[BitcoinResponse[GetNewAddress]] = {
-    val request = httpClient.httpRequestWithParams("getnewaddress", Vector(account))
+  def getNewAddress(account: Option[String] = None)(implicit executionContext: ExecutionContext): Future[BitcoinResponse[GetNewAddress]] = {
+    val request = httpClient.httpRequestWithParams("getnewaddress", Vector(account).flatten)
     val response = httpClient.performRequest(request)
     response.flatMap(unmarshalResponse[GetNewAddress])
   }

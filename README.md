@@ -1,3 +1,5 @@
+Migrated to: https://github.com/bitcoinpaygate/bitcoin4s
+
 #bitcoin4s
 
 This is a scala wrapper for the `bitcoin-rpc` interface.
